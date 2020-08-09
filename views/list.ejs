@@ -1,0 +1,28 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= listTitle %> </h1>
+  </div>
+
+  <div class="box">
+    <% newListItems.forEach(function(singleItem) { %>
+      <form action="/delete" method="post">
+        <div class="item">
+        <!-- //there can be a value associated with each check box. -->
+        <!-- //we can submit this form, using 'this.form.submit', and find out which item's ID is passed -->
+          <input type="checkbox" name="checkbox" value="<%= singleItem._id%>" onChange="this.form.submit()">
+          <p><%=  singleItem.name  %></p>
+        </div>
+        <!-- //create hidden input that cannot be seen by user -->
+        <!-- //name is for access by req.body, and the value is what it is referencing -->
+      <input type="hidden" name="listName" value="<%= listTitle%>"></input>
+      </form>
+      <% }); %>
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <button type="submit" name="list" value="<%= listTitle%>">+</button>
+      </form>
+  </div>
+
+<%- include("footer") -%>
